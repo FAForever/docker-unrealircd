@@ -16,14 +16,12 @@ USER unreal
 ENV HOME /home/unreal
 WORKDIR /home/unreal
 ADD deploy-unrealirc.sh /usr/bin/deploy-unrealirc
-ADD secrets.sh /home/unreal/secrets.sh
 ADD config /home/unreal/config
 ADD anope-make.expect /home/unreal/anope-make.expect
 COPY deploy-anope /usr/bin/deploy-anope
 USER root
 RUN chmod +x /usr/bin/deploy-unrealirc
 RUN chmod +x /usr/bin/deploy-anope
-RUN chmod +x /home/unreal/secrets.sh
 USER unreal
 
 RUN wget https://www.unrealircd.org/unrealircd4/unrealircd-4.0.1.tar.gz
@@ -38,17 +36,15 @@ RUN echo $RULES > ircd.rules
 
 WORKDIR /home/unreal
 RUN deploy-anope
-ADD server.cert.pem /home/unreal/server.cert.pem
-ADD server.key.pem /home/unreal/server.key.pem
-RUN cp /home/unreal/server.cert.pem /home/unreal/unrealircd/conf/ssl/server.cert.pem
-RUN cp /home/unreal/server.key.pem /home/unreal/unrealircd/conf/ssl/server.key.pem
-ADD unreal.conf /home/unreal/unreal.conf
-ADD services.conf /home/unreal/services.conf
-RUN ./secrets.sh
-RUN cp /home/unreal/unreal.conf /home/unreal/unrealircd/conf/unrealircd.conf
-RUN cp /home/unreal/services.conf /home/unreal/unrealircd/services/conf/services.conf
+ADD unrealircd.conf.template /home/unreal/unrealircd.conf.template
+ADD services.conf.template /home/unreal/services.conf.template
+ADD default-cmd.sh /home/unreal/default-cmd.sh
 ADD run_anope.sh /home/unreal/run_anope.sh
 USER root
+RUN chmod +x /home/unreal/default-cmd.sh
 RUN chmod +x /home/unreal/run_anope.sh
 USER unreal
-CMD /home/unreal/unrealircd/unrealircd start && /home/unreal/run_anope.sh
+
+CMD ./default-cmd.sh
+
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 CMD ["./healthcheck.sh"]
