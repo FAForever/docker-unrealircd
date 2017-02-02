@@ -24,4 +24,11 @@ RUN ./Config
 RUN make
 RUN make install
 
-CMD /home/unreal/unrealircd/unrealircd start
+# Add run script
+WORKDIR /home/unreal
+ADD run_unrealircd.sh ./run_unrealircd.sh
+USER root
+RUN chmod +x ./run_unrealircd.sh
+
+USER unreal
+CMD /home/unreal/run_unrealircd.sh
