@@ -24,4 +24,4 @@ RUN ./Config
 RUN make
 RUN make install
 
-CMD ./default-cmd.sh
+CMD /home/unreal/unrealircd/unrealircd start
