@@ -1,5 +1,0 @@
-export UNREAL_VERSION="4.0.1"
-export ANOPE_VERSION="2.0.3"
-export MOTD="Welcome to Forged Alliance Forever chat"
-export RULES=""
-export TERM="vt100"

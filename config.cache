@@ -1,0 +1,8 @@
+INSTDIR="/home/unreal/services"
+RUNGROUP="unreal"
+UMASK=007
+DEBUG="no"
+USE_PCH="no"
+EXTRA_INCLUDE_DIRS=""
+EXTRA_LIB_DIRS=""
+EXTRA_CONFIG_ARGS=""
