@@ -12,6 +12,7 @@ UnrealIRCD without(!) Anope Services based on dockerimages/docker-unrealircd
         context: ./docker-unrealircd
         args:
           unreal_version: '4.0.1'
+          maxconnections: '5000'
       ulimits:
         nofile:
           soft: 8192
@@ -49,13 +50,14 @@ For testing, create self-signed certificate:
 
     openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout server.key.pem -out server.cert.pem
 
-## Build configuration
-
-Copy `config.settings.sample` to `config.settings` and adjust.
-
 # build
 
     docker build -t unrealirc
+
+Available args:
+
+* `unreal_version': Version of unreal tarball to pull
+* `maxconnections`: MAXCONNECTIONS setting in `config.settings`
 
 # usage
 

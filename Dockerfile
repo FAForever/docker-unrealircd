@@ -19,7 +19,11 @@ ENV UNREAL_VERSION ${unreal_version:-4.0.1}
 RUN wget https://www.unrealircd.org/unrealircd4/unrealircd-${UNREAL_VERSION}.tar.gz
 RUN tar -zxvf unrealircd-${UNREAL_VERSION}.tar.gz
 WORKDIR unrealircd-${UNREAL_VERSION}
+ARG maxconnections
+ENV MAXCONNECTIONS ${maxconnections:-1024}
 ADD config.settings ./config.settings
+RUN sed -i "s/%maxconnections%/${MAXCONNECTIONS}/" ./config.settings
+RUN cat ./config.settings
 RUN ./Config
 RUN make
 RUN make install
