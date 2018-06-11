@@ -1,7 +1,7 @@
 FROM ubuntu:trusty
 ENV LC_ALL C
-ENV UNREAL_VERSION="4.0.1"
-ENV ANOPE_VERSION="2.0.3"
+ENV UNREAL_VERSION="4.0.17"
+ENV ANOPE_VERSION="2.0.6"
 ENV MOTD="Welcome to Forged Alliance Forever chat"
 ENV RULES=""
 ENV TERM="vt100"
