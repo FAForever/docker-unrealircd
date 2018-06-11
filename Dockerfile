@@ -15,12 +15,9 @@ RUN chown unreal:unreal /home/unreal
 USER unreal
 ENV HOME /home/unreal
 WORKDIR /home/unreal
-ADD deploy-unrealirc.sh /usr/bin/deploy-unrealirc
-ADD config /home/unreal/config
 ADD anope-make.expect /home/unreal/anope-make.expect
 COPY deploy-anope /usr/bin/deploy-anope
 USER root
-RUN chmod +x /usr/bin/deploy-unrealirc
 RUN chmod +x /usr/bin/deploy-anope
 USER unreal
 
