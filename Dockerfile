@@ -1,7 +1,7 @@
 FROM ubuntu:trusty
 ENV LC_ALL C
 ENV UNREAL_VERSION="4.0.1"
-ENV ANOPE_VERSION="2.0.2"
+ENV ANOPE_VERSION="2.0.3"
 ENV MOTD="Welcome to Forged Alliance Forever chat"
 ENV RULES=""
 ENV TERM="vt100"
@@ -24,7 +24,7 @@ RUN chmod +x /usr/bin/deploy-unrealirc
 RUN chmod +x /usr/bin/deploy-anope
 USER unreal
 
-RUN wget https://www.unrealircd.org/unrealircd4/unrealircd-4.0.1.tar.gz
+RUN wget https://www.unrealircd.org/unrealircd4/unrealircd-$UNREAL_VERSION.tar.gz
 RUN tar -zxvf unrealircd-$UNREAL_VERSION.tar.gz
 WORKDIR unrealircd-$UNREAL_VERSION
 ADD config.settings ./config.settings
