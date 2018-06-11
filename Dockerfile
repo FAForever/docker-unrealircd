@@ -15,16 +15,14 @@ RUN chown unreal:unreal /home/unreal
 USER unreal
 ENV HOME /home/unreal
 WORKDIR /home/unreal
-ADD anope-make.expect /home/unreal/anope-make.expect
-COPY deploy-anope /usr/bin/deploy-anope
-USER root
-RUN chmod +x /usr/bin/deploy-anope
-USER unreal
+COPY --chown=unreal:unreal anope-make.expect /home/unreal/anope-make.expect
+COPY --chown=unreal:unreal deploy-anope.sh /home/unreal/deploy-anope.sh
+RUN chmod +x /home/unreal/deploy-anope.sh
 
 RUN wget https://www.unrealircd.org/unrealircd4/unrealircd-$UNREAL_VERSION.tar.gz
 RUN tar -zxvf unrealircd-$UNREAL_VERSION.tar.gz
 WORKDIR unrealircd-$UNREAL_VERSION
-ADD config.settings ./config.settings
+COPY --chown=unreal:unreal config.settings ./config.settings
 RUN ./Config
 RUN make
 RUN make install
@@ -32,15 +30,13 @@ RUN echo $MOTD > ircd.motd
 RUN echo $RULES > ircd.rules
 
 WORKDIR /home/unreal
-RUN deploy-anope
-ADD unrealircd.conf.template /home/unreal/unrealircd.conf.template
-ADD services.conf.template /home/unreal/services.conf.template
-ADD default-cmd.sh /home/unreal/default-cmd.sh
-ADD run_anope.sh /home/unreal/run_anope.sh
-USER root
+RUN /home/unreal/deploy-anope.sh
+COPY --chown=unreal:unreal unrealircd.conf.template /home/unreal/unrealircd.conf.template
+COPY --chown=unreal:unreal services.conf.template /home/unreal/services.conf.template
+COPY --chown=unreal:unreal default-cmd.sh /home/unreal/default-cmd.sh
+COPY --chown=unreal:unreal run_anope.sh /home/unreal/run_anope.sh
 RUN chmod +x /home/unreal/default-cmd.sh
 RUN chmod +x /home/unreal/run_anope.sh
-USER unreal
 
 CMD ./default-cmd.sh
 
