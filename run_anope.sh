@@ -1,5 +1,5 @@
 #!/bin/bash
-hile true
+while true
 do
 if pgrep -f services 1> /dev/null;then
 	sleep 1
