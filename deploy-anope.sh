@@ -6,6 +6,7 @@ wget -O anope-$ANOPE_VERSION-source.tar.gz https://github.com/anope/anope/releas
 tar -zxvf anope-$ANOPE_VERSION-source.tar.gz
 cd anope-$ANOPE_VERSION-source
 cp modules/extra/m_mysql.cpp modules/m_mysql.cpp
+./Config
 /usr/bin/expect /home/unreal/anope-make.expect
 cd build
 make
