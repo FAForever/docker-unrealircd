@@ -1,3 +1,11 @@
+**!!! \<DEPRECATION NOTICE> !!!**
+
+This container is not used anymore as it couples the unreal ircd and anope services in one container instead of 2 proper docker containers.
+We moved to a 2 container solution.
+
+**!!! \</DEPRECATION NOTICE> !!!**
+
+
 unrealircd for FAF
 ==============
 
